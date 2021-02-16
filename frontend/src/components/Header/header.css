@@ -1,0 +1,57 @@
+.header {
+  padding: 36px 20px 26px 20px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  max-width: 882px;
+  border-bottom: 1px solid #545454b3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__logo {
+  width: 70px;
+}
+
+.header__info {
+  display: flex;
+  align-items: center;
+}
+
+.header__info__mail {
+  margin: 0 24px 0 0;
+  font-family: 'Roboto';
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+.header__sign {
+  margin: 0;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 1.2;
+  color: rgb(22, 202, 213);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+}
+
+.header__sign:hover {
+  color: rgb(22, 167, 213);
+}
+
+.header__out {
+  margin: 0;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 1.2;
+  color: rgb(22, 202, 213);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+}
+
+.header__out:hover {
+  color: rgb(22, 167, 213);
+}

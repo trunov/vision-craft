@@ -24,7 +24,7 @@ db.connect((err) => {
 app.use(routes);
 
 app.use("*", () => {
-  throw new NotFoundError("Запрашиваемый ресурс не найден");
+  throw new NotFoundError("The requested resource is not found");
 });
 
 app.use(errors());
