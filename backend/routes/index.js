@@ -6,9 +6,9 @@ const { validateUserLogin } = require("../middlewares/celebrateHandlers");
 
 const { createUser, login } = require("../controllers/users");
 
-router.post("/signin", validateUserLogin, login);
+router.post("/login", validateUserLogin, login);
 
-router.post("/signup", createUser);
+router.post("/register", createUser);
 
 router.use("/users", users);
 

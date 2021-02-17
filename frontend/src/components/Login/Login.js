@@ -1,7 +1,7 @@
 import React from "react";
 
 
-function Login() {
+function Login({handleLogin}) {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
@@ -20,7 +20,7 @@ function Login() {
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    // handleLogin(email, password);
+    handleLogin(email, password);
     resetForm();
   }
   return (

@@ -1,6 +1,8 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+const UniqueError = require("../errors/UniqueError");
+
 const { db, JWT_SECRET } = require("../configs");
 
 module.exports.getUser = (req, res) => {
@@ -17,7 +19,7 @@ module.exports.getUser = (req, res) => {
   );
 };
 
-module.exports.createUser = (req, res) => {
+module.exports.createUser = (req, res, next) => {
   const { name, email, password } = req.body;
 
   db.query(
@@ -27,7 +29,8 @@ module.exports.createUser = (req, res) => {
       if (error) {
         res.send({ message: error });
       } else if (results.length > 0) {
-        res.send({ message: "Email already registered" });
+        return next(new UniqueError("Email already registered"));
+        // res.status(409).send({ message: "Email already registered" });
       } else {
         let hashedPassword = await bcrypt.hash(password, 10);
 
@@ -38,7 +41,7 @@ module.exports.createUser = (req, res) => {
             if (error) {
               res.send({ message: error.sqlMessage });
             } else {
-              res.send({ message: results.insertId });
+              res.send({ message: `Welcome on board ${name}` });
             }
           }
         );

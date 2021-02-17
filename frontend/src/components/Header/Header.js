@@ -3,7 +3,7 @@ import { Route, Link } from "react-router-dom";
 import logo from "../../images/logo.svg";
 import "./header.css";
 
-function Header({ signOut }) {
+function Header({ userEmail, signOut }) {
   return (
     <header className="header">
       <Link to="/">
@@ -12,9 +12,9 @@ function Header({ signOut }) {
 
       <Route exact path="/">
         <div className="header__info">
-          <p className="header__info__mail">kk@kk.ee</p>
-          <Link to="/sign-in" className="header__out" onClick={signOut}>
-            Выйти
+          <p className="header__info__mail">{userEmail}</p>
+          <Link to="/login" className="header__out" onClick={signOut}>
+            Logout
           </Link>
         </div>
       </Route>

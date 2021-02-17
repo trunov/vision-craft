@@ -1,6 +1,6 @@
 import React from "react";
 
-function Register() {
+function Register({handleRegister}) {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [name, setName] = React.useState("");
@@ -23,7 +23,7 @@ function Register() {
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    // handleRegister(name, email, password);
+    handleRegister(name, email, password);
     resetForm();
   }
   return (
