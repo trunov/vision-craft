@@ -1,9 +1,33 @@
 import React from "react";
+import validator from "validator";
 
-
-function Login({handleLogin}) {
+function Login({ handleLogin }) {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+
+  const [isValidEmail, setIsValidEmail] = React.useState(true);
+
+  const [inputsFilled, setInputsFilled] = React.useState(false);
+
+  function checkInputs() {
+    if (email !== "" && password !== "" && isValidEmail) {
+      setInputsFilled(true);
+    } else {
+      setInputsFilled(false);
+    }
+  }
+
+  function validateEmail() {
+    if (validator.isEmail(email)) {
+      setIsValidEmail(true);
+    } else if (email === '') {
+      setIsValidEmail(true);
+    } else {
+      setIsValidEmail(false);
+    }
+  }
+
+  let arr = [email, password, isValidEmail];
 
   function handleChange(evt) {
     if (evt.target.name === "Email") {
@@ -23,10 +47,22 @@ function Login({handleLogin}) {
     handleLogin(email, password);
     resetForm();
   }
+
+  React.useEffect(() => {
+    checkInputs();
+    validateEmail();
+  }, arr);
+
   return (
     <section className="sign">
       <h2 className="sign__title">Login</h2>
-      <form className="sign__form" action="#" name="sign-form" onSubmit={handleSubmit} noValidate>
+      <form
+        className="sign__form"
+        action="#"
+        name="sign-form"
+        onSubmit={handleSubmit}
+        noValidate
+      >
         <input
           required
           type="email"
@@ -35,8 +71,18 @@ function Login({handleLogin}) {
           name="Email"
           onChange={handleChange}
           value={email}
+          autoComplete="off"
           title="email"
         ></input>
+        <span
+          className={`sign__email-error ${
+            !isValidEmail && "sign__email-error_visible"
+          }`}
+          id="email-error"
+        >
+          Incorrect format of an email
+        </span>
+
         <input
           required
           type="password"
@@ -47,7 +93,12 @@ function Login({handleLogin}) {
           value={password}
           title="password"
         ></input>
-        <button type="submit" className="sign__button">
+        <button
+          type="submit"
+          className={`sign__button ${!inputsFilled && "sign__button_disabled"}`}
+          disabled={!inputsFilled}
+          title="loginButton"
+        >
           Login
         </button>
       </form>

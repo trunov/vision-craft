@@ -72,7 +72,7 @@ function App() {
       })
       .catch((err) => {
         setDataInfoTool({
-          title: err.message,
+          title: 'Email or Password is incorrect',
           icon: failLogo,
         });
         handleInfoTooltipOpen();

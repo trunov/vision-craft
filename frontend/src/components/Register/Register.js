@@ -1,9 +1,39 @@
 import React from "react";
+import validator from "validator";
 
-function Register({handleRegister}) {
+function Register({ handleRegister }) {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [name, setName] = React.useState("");
+
+  const [inputsFilled, setInputsFilled] = React.useState(false);
+
+  const [isValidEmail, setIsValidEmail] = React.useState(true);
+
+  function checkInputs() {
+    if (email !== "" && password !== "" && name !== "" && isValidEmail) {
+      setInputsFilled(true);
+    } else {
+      setInputsFilled(false);
+    }
+  }
+
+  function validateEmail() {
+    if (validator.isEmail(email)) {
+      setIsValidEmail(true);
+    } else if (email === '') {
+      setIsValidEmail(true);
+    } else {
+      setIsValidEmail(false);
+    }
+  }
+
+  let arr = [email, password, name, isValidEmail];
+
+  React.useEffect(() => {
+    checkInputs();
+    validateEmail();
+  }, arr);
 
   function handleChange(evt) {
     if (evt.target.name === "Email") {
@@ -29,8 +59,14 @@ function Register({handleRegister}) {
   return (
     <section className="sign">
       <h2 className="sign__title">Register</h2>
-      <form className="sign__form" action="#" name="sign-form" onSubmit={handleSubmit} noValidate>
-      <input
+      <form
+        className="sign__form"
+        action="#"
+        name="sign-form"
+        onSubmit={handleSubmit}
+        noValidate
+      >
+        <input
           required
           type="name"
           className="sign__input"
@@ -39,6 +75,7 @@ function Register({handleRegister}) {
           onChange={handleChange}
           value={name}
           title="name"
+          autoComplete="off"
         ></input>
         <input
           required
@@ -49,7 +86,16 @@ function Register({handleRegister}) {
           onChange={handleChange}
           value={email}
           title="email"
+          autoComplete="off"
         ></input>
+        <span
+          className={`sign__email-error ${
+            !isValidEmail && "sign__email-error_visible"
+          }`}
+          id="email-error"
+        >
+          Incorrect format of an email
+        </span>
         <input
           required
           type="password"
@@ -60,7 +106,12 @@ function Register({handleRegister}) {
           value={password}
           title="password"
         ></input>
-        <button type="submit" className="sign__button">
+        <button
+          type="submit"
+          title="registerButton"
+          className={`sign__button ${!inputsFilled && "sign__button_disabled"}`}
+          disabled={!inputsFilled}
+        >
           Register
         </button>
       </form>

@@ -40,7 +40,6 @@
 
 .sign__input:focus {
   outline: none;
-  
 }
 
 .sign__title {
@@ -75,6 +74,13 @@
   opacity: 0.85;
 }
 
+.sign__button_disabled {
+  background-color: #e6e8eb;
+  color: #b6bcbf;
+  box-shadow: none;
+  pointer-events: none;
+}
+
 .sign__link {
   text-decoration: none;
   color: #fff;
@@ -91,4 +97,21 @@
   line-height: 17px;
   color: #fff;
   margin: 15px 0 0;
+}
+
+.sign__email-error {
+  font-family: "Roboto";
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+  color: rgb(22, 202, 213);
+  position: relative;
+  top: 10px;
+  left: 25%;
+  visibility: hidden;
+}
+
+.sign__email-error_visible {
+  visibility: visible;
 }
