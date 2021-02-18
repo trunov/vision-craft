@@ -56,16 +56,20 @@ module.exports.login = (req, res) => {
     "SELECT * FROM users WHERE email = ?",
     [email],
     async (error, results) => {
-      const passwordComparison = await bcrypt.compare(
-        password,
-        results[0].password
-      );
-      if (!results || !passwordComparison) {
+      if (results.length === 0) {
         res.status(401).send({ message: "Email or Password is incorrect" });
       } else {
-        const id = results[0].id;
-        const token = jwt.sign({ _id: id }, JWT_SECRET, { expiresIn: "7d" });
-        res.send({ token });
+        const passwordComparison = await bcrypt.compare(
+          password,
+          results[0].password
+        );
+        if (!results || !passwordComparison) {
+          res.status(401).send({ message: "Email or Password is incorrect" });
+        } else {
+          const id = results[0].id;
+          const token = jwt.sign({ _id: id }, JWT_SECRET, { expiresIn: "7d" });
+          res.send({ token });
+        }
       }
     }
   );

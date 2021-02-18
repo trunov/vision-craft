@@ -1,5 +1,5 @@
 const express = require("express");
-const { errors } = require('celebrate');
+const { errors } = require("celebrate");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const { db, PORT } = require("./configs");
@@ -8,18 +8,16 @@ const NotFoundError = require("./errors/NotFoundError");
 
 const app = express();
 
-
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 db.connect((err) => {
-  if(err) {
+  if (err) {
     console.log(err);
-  } else {
-    console.log("mysql connected");
   }
-})
+  console.log("mysql connected");
+});
 
 app.use(routes);
 
@@ -39,3 +37,5 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
 });
+
+module.exports = app;
